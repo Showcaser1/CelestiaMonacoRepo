@@ -3,18 +3,138 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Celestia - Monaco Code Editor</title>
+  <title>Executor Editor</title>
   <link rel="stylesheet" href="styles.css">
   <script src="https://unpkg.com/monaco-editor@0.44.0/min/vs/loader.js"></script>
+  <style>
+    body {
+      margin: 0;
+      background-color: #0a0a0a;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    #app {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background-color: #0a0a0a;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    #tab-bar {
+      display: flex;
+      align-items: center;
+      background: transparent;
+      padding: 10px;
+      border-bottom: 1px solid #222;
+    }
+
+    .add-tab-button {
+      background: none;
+      border: none;
+      color: white;
+      margin-left: auto;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .add-tab-button:hover {
+      color: #00ffe1;
+      transform: scale(1.1);
+    }
+
+    #editor-container {
+      flex: 1;
+      border-top: 1px solid #333;
+    }
+
+    .dialog-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .dialog-content {
+      background-color: #121212;
+      padding: 20px;
+      border-radius: 10px;
+      width: 300px;
+    }
+
+    .dialog-header h3 {
+      margin: 0;
+      color: white;
+    }
+
+    .dialog-input {
+      width: 100%;
+      margin-top: 10px;
+      padding: 8px;
+      border-radius: 5px;
+      border: none;
+      background: #222;
+      color: white;
+    }
+
+    .dialog-footer {
+      margin-top: 15px;
+      text-align: right;
+    }
+
+    .dialog-button {
+      padding: 6px 12px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .dialog-button.primary {
+      background-color: #00ffe1;
+      color: black;
+    }
+
+    .dialog-button.secondary {
+      background-color: #333;
+      color: white;
+    }
+
+    .context-menu {
+      position: absolute;
+      background: #1a1a1a;
+      color: white;
+      border: 1px solid #333;
+      border-radius: 5px;
+      padding: 5px 0;
+      z-index: 10;
+    }
+
+    .context-menu-item {
+      padding: 6px 15px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .context-menu-item:hover {
+      background-color: #333;
+    }
+
+    .context-menu-item svg {
+      margin-right: 6px;
+    }
+  </style>
 </head>
 <body>
-  <div id="app" class="h-full flex flex-col bg-editor">
+  <div id="app">
 
-    <div id="tab-bar" class="flex items-center bg-transparent min-h-[40px] px-2 pt-2">
-      <div id="tabs-container" class="flex items-center gap-1">
-
-      </div>
-      
+    <div id="tab-bar">
+      <div id="tabs-container" class="flex items-center gap-1"></div>
 
       <button id="add-tab-btn" class="add-tab-button">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -24,13 +144,9 @@
       </button>
     </div>
 
-    
-    <div id="editor-container" class="flex-1 border-t border-separator">
-      
-    </div>
+    <div id="editor-container"></div>
   </div>
 
- 
   <div id="rename-dialog" class="dialog-overlay hidden">
     <div class="dialog-content">
       <div class="dialog-header">
@@ -44,7 +160,6 @@
     </div>
   </div>
 
-  
   <div id="context-menu" class="context-menu hidden">
     <div class="context-menu-item" data-action="rename">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
