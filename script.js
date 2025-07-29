@@ -11,14 +11,7 @@ class CelestiaEditor {
     this.minimapVisible = false
 
     this.WELCOME_CONTENT = `-- Welcome, User
-
--- Example Script
-local player = game.Players.LocalPlayer
-local character = player.Character or player.CharacterAdded:Wait()
-local humanoid = character:WaitForChild("Humanoid")
-
-humanoid.WalkSpeed = 50
-`
+    `
 
     this.initMonaco()
     this.loadTabsFromLocalStorage()
@@ -34,7 +27,7 @@ humanoid.WalkSpeed = 50
       this.editor = monaco.editor.create(document.getElementById('editor-container'), {
         value: '',
         language: 'lua',
-        theme: 'vs-dark',
+        theme: 'hc-black',
         automaticLayout: true,
         minimap: { enabled: this.minimapVisible }
       })
