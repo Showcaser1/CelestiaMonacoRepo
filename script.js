@@ -22,34 +22,41 @@ class CelestiaEditor {
   }
 
   initMonaco() {
-    require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.34.0/min/vs' }})
-    require(['vs/editor/editor.main'], () => {
-      this.editor = monaco.editor.create(document.getElementById('editor-container'), {
-        value: '',
-        language: 'lua',
-        theme: 'hc-black',
-        automaticLayout: true,
-        minimap: { enabled: this.minimapVisible }
+    try {
+      require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.34.0/min/vs' } })
+      require(['vs/editor/editor.main'], () => {
+        this.editor = monaco.editor.create(document.getElementById('editor-container'), {
+          value: '',
+          language: 'lua',
+          theme: 'hc-black',
+          automaticLayout: true,
+          minimap: { enabled: this.minimapVisible }
+        })
+        this.editor.onDidChangeModelContent(() => this.handleContentChange())
+        const welcomeTab = this.tabs.find(t => t.name === "Welcome.lua")
+        if (welcomeTab) {
+          this.activeTabId = welcomeTab.id
+          this.updateEditorContent()
+        }
+        this.updateStatusBar()
+      }, (err) => {
+        console.error('Failed to load Monaco editor:', err)
       })
-      this.editor.onDidChangeModelContent(() => this.handleContentChange())
-      const welcomeTab = this.tabs.find(t => t.name === "Welcome.lua")
-      if (welcomeTab) {
-        this.activeTabId = welcomeTab.id
-        this.updateEditorContent()
-      }
-      this.updateStatusBar()
-    })
+    } catch (err) {
+      console.error('Monaco configuration failed:', err)
+    }
   }
 
   loadTabsFromLocalStorage() {
     const storedTabs = localStorage.getItem("celestia-editor-tabs")
     const storedActive = localStorage.getItem("celestia-editor-active-tab")
-    if (storedTabs) {
-      try {
+    try {
+      if (storedTabs) {
         this.tabs = JSON.parse(storedTabs)
-      } catch {
-        this.tabs = []
       }
+    } catch (err) {
+      console.error('Failed to parse stored tabs:', err)
+      this.tabs = []
     }
     let welcomeTab = this.tabs.find(t => t.name === "Welcome.lua")
     if (!welcomeTab) {
@@ -92,20 +99,9 @@ class CelestiaEditor {
     if (!document.getElementById('add-tab-btn')) {
       const plusBtn = document.createElement('button')
       plusBtn.id = 'add-tab-btn'
+      plusBtn.className = 'add-tab-button'
       plusBtn.innerText = '+'
       plusBtn.title = 'New Tab'
-      plusBtn.style.marginLeft = '10px'
-      plusBtn.style.fontWeight = 'bold'
-      plusBtn.style.fontSize = '17px'
-      plusBtn.style.background = 'transparent'
-      plusBtn.style.border = 'none'
-      plusBtn.style.color = '#87aaff'
-      plusBtn.style.cursor = 'pointer'
-      plusBtn.style.padding = '0 10px'
-      plusBtn.style.height = '30px'
-      plusBtn.style.verticalAlign = 'middle'
-      plusBtn.addEventListener('mouseenter', () => plusBtn.style.background = '#29304b')
-      plusBtn.addEventListener('mouseleave', () => plusBtn.style.background = 'transparent')
       container.parentNode.insertBefore(plusBtn, container.nextSibling)
     }
     document.getElementById('add-tab-btn').onclick = () => this.addTab()
@@ -123,15 +119,15 @@ class CelestiaEditor {
       tabElement.innerHTML = `
         <img src="luaicon.png" alt="Lua" class="tab-icon" style="width:16px;height:16px;vertical-align:middle;margin-right:6px;">
         <span class="tab-name">${this.escapeHtml(tab.name)}</span>
-        <span class="unsaved-indicator">${tab.saved ? "" : "•"}</span>
-        ${tab.name !== "Welcome.lua" ? `<span class="close-btn" style="margin-left:18px;" title="Close tab">×</span>` : ""}
+        <span class="tab-unsaved">${tab.saved ? "" : "•"}</span>
+        ${tab.name !== "Welcome.lua" ? `<span class="tab-close" title="Close tab">×</span>` : ""}
       `
       tabElement.addEventListener("click", (e) => {
-        if (e.target.classList.contains("close-btn")) return
+        if (e.target.classList.contains("tab-close")) return
         this.switchTab(tab.id)
       })
       if (tab.name !== "Welcome.lua") {
-        const closeBtn = tabElement.querySelector(".close-btn")
+        const closeBtn = tabElement.querySelector(".tab-close")
         if (closeBtn) {
           closeBtn.addEventListener("click", (e) => {
             e.stopPropagation()
@@ -278,9 +274,13 @@ class CelestiaEditor {
   }
 
   saveTabsToLocalStorage() {
-    localStorage.setItem("celestia-editor-tabs", JSON.stringify(this.tabs))
-    localStorage.setItem("celestia-editor-active-tab", this.activeTabId)
-    localStorage.setItem("celestia-editor-last-tab-number", String(this.tabCounter))
+    try {
+      localStorage.setItem("celestia-editor-tabs", JSON.stringify(this.tabs))
+      localStorage.setItem("celestia-editor-active-tab", this.activeTabId)
+      localStorage.setItem("celestia-editor-last-tab-number", String(this.tabCounter))
+    } catch (err) {
+      console.error('Failed to save tabs to local storage:', err)
+    }
   }
 
   updateStatusBar() {
@@ -309,7 +309,7 @@ class CelestiaEditor {
 
   hideContextMenu() {
     const menu = document.getElementById("context-menu")
-    if (menu) menu.style.display = "none"
+    if (menu) menu.className = 'context-menu hidden'
   }
 
   setupWindowEvents() {
