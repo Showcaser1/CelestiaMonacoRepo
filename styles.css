@@ -8,8 +8,8 @@ html,
 body {
   height: 100%;
   font-family: "JetBrains Mono", "Consolas", "Monaco", monospace;
-  background: rgb(20,20,20);
-  color: #ffffff;
+  background: #1a1a1a; /* Darker background */
+  color: #e0e0e0; /* Softer white for text */
   overflow: hidden;
 }
 
@@ -34,7 +34,7 @@ body {
 }
 
 .bg-editor {
-  background-color: rgb(20,20,20);
+  background-color: #1a1a1a; /* Match darker body background */
 }
 
 .bg-transparent {
@@ -63,11 +63,11 @@ body {
 }
 
 .border-separator {
-  border-color: #333333;
+  border-color: #2a2a2a; /* Darker separator */
 }
 
 #tabs-container {
-  background-color: rgb(20,20,20);
+  background-color: #1a1a1a; /* Match editor background */
   display: flex;
   align-items: flex-end;
 }
@@ -80,22 +80,24 @@ body {
   position: relative;
   min-width: 120px;
   max-width: 200px;
-  border-radius: 8px 8px 0 0;
-  background-color: rgb(25,25,25);
-  color: #9ca3af;
+  border-radius: 6px 6px 0 0; /* Slightly tighter radius */
+  background-color: #222222; /* Darker tab background */
+  color: #a0a0a0; /* Softer gray for inactive tabs */
   transition: all 0.2s ease;
-  opacity: 0.7;
-  margin-right: 0;
+  opacity: 0.8;
+  margin-right: 2px; /* Subtle spacing between tabs */
 }
 
 .tab:hover {
-  color: #e5e7eb;
-  background-color: #2a2a2a;
+  color: #ffffff;
+  background-color: #2d2d2d; /* Slightly lighter hover */
+  opacity: 1;
 }
 
 .tab.active {
-  color: white;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  color: #ffffff;
+  background-color: #1e1e1e; /* Distinct active tab */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   opacity: 1;
 }
 
@@ -104,11 +106,11 @@ body {
   height: 16px;
   margin-right: 8px;
   flex-shrink: 0;
-  opacity: 0.6;
+  opacity: 0.7;
 }
 
 .tab-name {
-  font-size: 14px;
+  font-size: 13px; /* Slightly smaller for better fit */
   font-weight: 500;
   white-space: nowrap;
   overflow: hidden;
@@ -116,7 +118,7 @@ body {
 }
 
 .tab-unsaved {
-  color: #60a5fa;
+  color: #4b9eff; /* Brighter blue for unsaved indicator */
   margin-left: 4px;
 }
 
@@ -126,14 +128,14 @@ body {
   border-radius: 4px;
   background: none;
   border: none;
-  color: #9ca3af;
+  color: #a0a0a0;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .tab-close:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: white;
+  background-color: rgba(255, 255, 255, 0.15); /* Subtler hover */
+  color: #ffffff;
 }
 
 .tab-close svg {
@@ -145,10 +147,10 @@ body {
 #add-tab-btn {
   padding: 8px;
   margin-left: 4px;
-  color: #9ca3af;
+  color: #a0a0a0;
   background: none;
   border: none;
-  border-radius: 8px;
+  border-radius: 6px;
   cursor: pointer;
   transition: all 0.2s ease;
   display: flex;
@@ -158,8 +160,8 @@ body {
 
 .add-tab-button:hover,
 #add-tab-btn:hover {
-  color: white;
-  background-color: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  background-color: #2d2d2d; /* Consistent hover with tabs */
 }
 
 .dialog-overlay {
@@ -168,7 +170,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.7); /* Darker overlay */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -180,34 +182,34 @@ body {
 }
 
 .dialog-content {
-  background-color: #2a2a2a;
-  border: 1px solid #404040;
-  border-radius: 8px;
-  padding: 24px;
+  background-color: #222222; /* Darker dialog background */
+  border: 1px solid #333333;
+  border-radius: 6px;
+  padding: 20px;
   min-width: 400px;
-  color: white;
+  color: #e0e0e0;
 }
 
 .dialog-header h3 {
-  font-size: 18px;
+  font-size: 17px; /* Slightly smaller for balance */
   font-weight: 600;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
 .dialog-input {
   width: 100%;
   padding: 8px 12px;
-  background-color: #1a1a1a;
-  border: 1px solid #404040;
+  background-color: #1a1a1a; /* Match editor background */
+  border: 1px solid #333333;
   border-radius: 4px;
-  color: white;
+  color: #e0e0e0;
   font-size: 14px;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
 .dialog-input:focus {
   outline: none;
-  border-color: #2563eb;
+  border-color: #3b82f6; /* Brighter blue for focus */
 }
 
 .dialog-footer {
@@ -227,33 +229,34 @@ body {
 
 .dialog-button.secondary {
   background: none;
-  border: 1px solid #404040;
-  color: #9ca3af;
+  border: 1px solid #333333;
+  color: #a0a0a0;
 }
 
 .dialog-button.secondary:hover {
-  background-color: #404040;
+  background-color: #333333;
+  color: #ffffff;
 }
 
 .dialog-button.primary {
-  background-color: #2563eb;
-  border: 1px solid #2563eb;
-  color: white;
+  background-color: #3b82f6; /* Brighter blue for primary action */
+  border: 1px solid #3b82f6;
+  color: #ffffff;
 }
 
 .dialog-button.primary:hover {
-  background-color: #1d4ed8;
+  background-color: #2563eb; /* Darker blue on hover */
 }
 
 .context-menu {
   position: fixed;
-  background-color: #2a2a2a;
-  border: 1px solid #404040;
-  border-radius: 4px;
+  background-color: #222222; /* Match dialog background */
+  border: 1px solid #333333;
+ ,\n  border-radius: 4px;
   padding: 4px 0;
   min-width: 150px;
   z-index: 1000;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
 .context-menu.hidden {
@@ -264,13 +267,13 @@ body {
   display: flex;
   align-items: center;
   padding: 8px 12px;
-  color: #e5e7eb;
+  color: #e0e0e0;
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
 
 .context-menu-item:hover {
-  background-color: #404040;
+  background-color: #333333;
 }
 
 .context-menu-item svg {
@@ -279,10 +282,10 @@ body {
 
 #editor-container {
   position: relative;
-  background: rgb(20,20,20) !important;
+  background: #1a1a1a !important; /* Consistent dark background */
 }
 
 .monaco-editor .monaco-editor-background,
 .monaco-editor .margin {
-  background: rgb(20,20,20) !important;
+  background: #1a1a1a !important; /* Match editor background */
 }
