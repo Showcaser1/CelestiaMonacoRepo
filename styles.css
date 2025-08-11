@@ -8,66 +8,27 @@ html,
 body {
   height: 100%;
   font-family: "JetBrains Mono", "Consolas", "Monaco", monospace;
-  background: #1a1a1a; /* Darker background */
-  color: #e0e0e0; /* Softer white for text */
+  background: #121212; /* Deepest black for background */
+  color: #d4d4d4; /* Slightly muted white for readability */
   overflow: hidden;
 }
 
-.h-full {
-  height: 100%;
-}
-
-.flex {
-  display: flex;
-}
-
-.flex-col {
-  flex-direction: column;
-}
-
-.flex-1 {
-  flex: 1;
-}
-
-.items-center {
-  align-items: center;
-}
-
-.bg-editor {
-  background-color: #1a1a1a; /* Match darker body background */
-}
-
-.bg-transparent {
-  background-color: transparent;
-}
-
-.min-h-\[40px\] {
-  min-height: 40px;
-}
-
-.px-2 {
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-}
-
-.pt-2 {
-  padding-top: 0.5rem;
-}
-
-.gap-1 {
-  gap: 0.25rem;
-}
-
-.border-t {
-  border-top: 1px solid;
-}
-
-.border-separator {
-  border-color: #2a2a2a; /* Darker separator */
-}
+.h-full { height: 100%; }
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.flex-1 { flex: 1; }
+.items-center { align-items: center; }
+.bg-editor { background-color: #121212; }
+.bg-transparent { background-color: transparent; }
+.min-h-\[40px\] { min-height: 40px; }
+.px-2 { padding-left: 0.5rem; padding-right: 0.5rem; }
+.pt-2 { padding-top: 0.5rem; }
+.gap-1 { gap: 0.25rem; }
+.border-t { border-top: 1px solid; }
+.border-separator { border-color: #252525; } /* Darker separator */
 
 #tabs-container {
-  background-color: #1a1a1a; /* Match editor background */
+  background-color: #121212; /* Match body background */
   display: flex;
   align-items: flex-end;
 }
@@ -80,24 +41,24 @@ body {
   position: relative;
   min-width: 120px;
   max-width: 200px;
-  border-radius: 6px 6px 0 0; /* Slightly tighter radius */
-  background-color: #222222; /* Darker tab background */
-  color: #a0a0a0; /* Softer gray for inactive tabs */
+  border-radius: 6px 6px 0 0;
+  background-color: #1c1c1c; /* Darker tab background */
+  color: #8b8b8b; /* Muted gray for inactive tabs */
   transition: all 0.2s ease;
   opacity: 0.8;
-  margin-right: 2px; /* Subtle spacing between tabs */
+  margin-right: 2px;
 }
 
 .tab:hover {
   color: #ffffff;
-  background-color: #2d2d2d; /* Slightly lighter hover */
+  background-color: #262626; /* Slightly lighter but still dark hover */
   opacity: 1;
 }
 
 .tab.active {
   color: #ffffff;
-  background-color: #1e1e1e; /* Distinct active tab */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  background-color: #171717; /* Even darker active tab */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
   opacity: 1;
 }
 
@@ -110,7 +71,7 @@ body {
 }
 
 .tab-name {
-  font-size: 13px; /* Slightly smaller for better fit */
+  font-size: 13px;
   font-weight: 500;
   white-space: nowrap;
   overflow: hidden;
@@ -118,7 +79,7 @@ body {
 }
 
 .tab-unsaved {
-  color: #4b9eff; /* Brighter blue for unsaved indicator */
+  color: #60a5fa; /* Vibrant blue for unsaved indicator */
   margin-left: 4px;
 }
 
@@ -128,13 +89,13 @@ body {
   border-radius: 4px;
   background: none;
   border: none;
-  color: #a0a0a0;
+  color: #8b8b8b;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .tab-close:hover {
-  background-color: rgba(255, 255, 255, 0.15); /* Subtler hover */
+  background-color: rgba(255, 255, 255, 0.1);
   color: #ffffff;
 }
 
@@ -147,7 +108,7 @@ body {
 #add-tab-btn {
   padding: 8px;
   margin-left: 4px;
-  color: #a0a0a0;
+  color: #8b8b8b;
   background: none;
   border: none;
   border-radius: 6px;
@@ -161,7 +122,7 @@ body {
 .add-tab-button:hover,
 #add-tab-btn:hover {
   color: #ffffff;
-  background-color: #2d2d2d; /* Consistent hover with tabs */
+  background-color: #262626; /* Match tab hover */
 }
 
 .dialog-overlay {
@@ -170,7 +131,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.7); /* Darker overlay */
+  background-color: rgba(0, 0, 0, 0.8); /* Darker overlay */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -182,16 +143,16 @@ body {
 }
 
 .dialog-content {
-  background-color: #222222; /* Darker dialog background */
-  border: 1px solid #333333;
+  background-color: #1c1c1c; /* Darker dialog */
+  border: 1px solid #252525;
   border-radius: 6px;
   padding: 20px;
   min-width: 400px;
-  color: #e0e0e0;
+  color: #d4d4d4;
 }
 
 .dialog-header h3 {
-  font-size: 17px; /* Slightly smaller for balance */
+  font-size: 17px;
   font-weight: 600;
   margin-bottom: 12px;
 }
@@ -199,17 +160,17 @@ body {
 .dialog-input {
   width: 100%;
   padding: 8px 12px;
-  background-color: #1a1a1a; /* Match editor background */
-  border: 1px solid #333333;
+  background-color: #121212; /* Match editor background */
+  border: 1px solid #252525;
   border-radius: 4px;
-  color: #e0e0e0;
+  color: #d4d4d4;
   font-size: 14px;
   margin-bottom: 12px;
 }
 
 .dialog-input:focus {
   outline: none;
-  border-color: #3b82f6; /* Brighter blue for focus */
+  border-color: #4b9eff; /* Brighter blue for focus */
 }
 
 .dialog-footer {
@@ -229,34 +190,34 @@ body {
 
 .dialog-button.secondary {
   background: none;
-  border: 1px solid #333333;
-  color: #a0a0a0;
+  border: 1px solid #252525;
+  color: #8b8b8b;
 }
 
 .dialog-button.secondary:hover {
-  background-color: #333333;
+  background-color: #252525;
   color: #ffffff;
 }
 
 .dialog-button.primary {
-  background-color: #3b82f6; /* Brighter blue for primary action */
-  border: 1px solid #3b82f6;
+  background-color: #4b9eff;
+  border: 1px solid #4b9eff;
   color: #ffffff;
 }
 
 .dialog-button.primary:hover {
-  background-color: #2563eb; /* Darker blue on hover */
+  background-color: #3b82f6; /* Slightly darker blue */
 }
 
 .context-menu {
   position: fixed;
-  background-color: #222222; /* Match dialog background */
-  border: 1px solid #333333;
- ,\n  border-radius: 4px;
+  background-color: #1c1c1c;
+  border: 1px solid #252525;
+  border-radius: 4px;
   padding: 4px 0;
   min-width: 150px;
   z-index: 1000;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
 }
 
 .context-menu.hidden {
@@ -267,13 +228,13 @@ body {
   display: flex;
   align-items: center;
   padding: 8px 12px;
-  color: #e0e0e0;
+  color: #d4d4d4;
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
 
 .context-menu-item:hover {
-  background-color: #333333;
+  background-color: #252525;
 }
 
 .context-menu-item svg {
@@ -282,10 +243,10 @@ body {
 
 #editor-container {
   position: relative;
-  background: #1a1a1a !important; /* Consistent dark background */
+  background: #121212 !important;
 }
 
 .monaco-editor .monaco-editor-background,
 .monaco-editor .margin {
-  background: #1a1a1a !important; /* Match editor background */
+  background: #121212 !important;
 }
